@@ -1,7 +1,10 @@
 package com.example.countriesapp.data.remote.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class CountryApiResponseDto(
-    val data: List<Data>,
+    @SerializedName("data")
+    val countries: List<CountryDto>,
     val error: Boolean,
     val msg: String
 )

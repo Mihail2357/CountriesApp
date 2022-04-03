@@ -15,36 +15,34 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-
 class CountryDetailViewModel @Inject constructor(
-
     private val getCountryUseCase: GetCountryUseCase,
-     savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 
 ) : ViewModel() {
     private val _state = mutableStateOf(CountryDetailState())
     val state: State<CountryDetailState> = _state
 
     init {
-        savedStateHandle.get<String>("name")?.let {
-            name -> getCountry(name)
+        savedStateHandle.get<String>("name")?.let { name ->
+            getCountry(name)
         }
     }
 
-    private fun getCountry(name : String) {
+    private fun getCountry(name: String) {
         getCountryUseCase(name).onEach { result ->
-            when(result) {
+            when (result) {
                 is Resource.Success -> {
-                    _state.value = CountryDetailState(country = result.data  )
+                    _state.value = CountryDetailState(country = result.data)
 
                 }
                 is Resource.Error -> {
-                    _state.value = CountryDetailState(error = result.message ?:
-                    "An unexpected error occured"
+                    _state.value = CountryDetailState(
+                        error = result.message ?: "An unexpected error occured"
                     )
                 }
                 is Resource.Loading -> {
-                    _state.value = CountryDetailState(isLoading = true )
+                    _state.value = CountryDetailState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)

@@ -17,8 +17,7 @@ class GetCountriesUseCase @Inject constructor(
     operator fun invoke(): Flow<Resource<List<Country>>> = flow {
         try{
             emit(Resource.Loading<List<Country>>())
-//            val countries = repository.getCountries().data.map {it.toCountry()}
-            val countries = listOf( Country("a", "a", "France"))
+            val countries = repository.getCountries().countries.map {it.toCountry()}
             emit(Resource.Success<List<Country>>(countries))
         } catch(e: HttpException) {
             emit(Resource.Error<List<Country>>(e.localizedMessage ?: "An unexpected error occurred"))

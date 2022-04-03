@@ -23,11 +23,9 @@ import com.example.countriesapp.presentation.country_list.components.CountryList
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-
 fun CountryDetailScreen(
     viewModel: CountryDetailViewModel = hiltViewModel()
-)
-{
+) {
     val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
         state.country?.let { country ->
@@ -46,8 +44,8 @@ fun CountryDetailScreen(
                             modifier = Modifier.weight(8f)
                         )
                         Text(
-                            text = if(country.unMember) "UN member" else "not UN member",
-                            color = if(country.unMember) Color.Green else Color.Red,
+                            text = if(country.unMember == true) "UN member" else "not UN member",
+                            color = if(country.unMember == true) Color.Green else Color.Red,
                             fontStyle = FontStyle.Italic,
                             textAlign = TextAlign.End,
                             modifier = Modifier
@@ -56,10 +54,12 @@ fun CountryDetailScreen(
                         )
                     }
                     Spacer(modifier = Modifier.height(15.dp))
-                    Text(
-                        text = country.status,
-                        style = MaterialTheme.typography.body2
-                    )
+                    country.status?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.body2
+                        )
+                    }
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = "Borders",
@@ -71,7 +71,7 @@ fun CountryDetailScreen(
                         crossAxisSpacing = 10.dp,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        country.borders.forEach { border ->
+                        country.borders?.forEach { border ->
                             CountryBorders(border = border)
                         }
                     }
