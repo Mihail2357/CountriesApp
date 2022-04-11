@@ -14,8 +14,8 @@ class CountryRepositoryImpl @Inject constructor(
         override suspend fun getCountries(): CountryApiResponseDto {
                 return countriesApi.getCountries()
         }
-        override suspend fun getCountryByName(name: String): CountryDetailsApiResponseDto {
-                return countryDetails.getCountryByName(name)
+        override suspend fun getCountryByName(s: String, name: String): CountryDetailsApiResponseDto {
+                return countryDetails.getCountryByName(s, name)
         }
 }
 

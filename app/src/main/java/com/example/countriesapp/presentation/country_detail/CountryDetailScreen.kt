@@ -24,6 +24,7 @@ import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun CountryDetailScreen(
+    navController: NavController,
     viewModel: CountryDetailViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -40,7 +41,7 @@ fun CountryDetailScreen(
                     ) {
                         Text(
                             text = "${country.name} ",
-                            style = MaterialTheme.typography.h2,
+                            style = MaterialTheme.typography.h3,
                             modifier = Modifier.weight(8f)
                         )
                         Text(
@@ -57,7 +58,7 @@ fun CountryDetailScreen(
                     country.status?.let {
                         Text(
                             text = it,
-                            style = MaterialTheme.typography.body2
+                            style = MaterialTheme.typography.h6
                         )
                     }
                     Spacer(modifier = Modifier.height(15.dp))
@@ -72,15 +73,33 @@ fun CountryDetailScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         country.borders?.forEach { border ->
-                            CountryBorders(border = border)
+                            CountryBorders(
+                                border = border,
+                                onItemClick = {
+                                    navController.navigate(Screen.CountryDetailScreen.route + "/alpha/${border}")
+                                }
+                            )
                         }
                     }
+
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
-                        text = "Capitals",
+                        text = "Population",
+                        style = MaterialTheme.typography.h3
+                    )
+                    Text(
+                        text = country.population.toString(),
+                        style = MaterialTheme.typography.h5
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
+
+                    Text(
+                        text = "Capital",
                         style = MaterialTheme.typography.h3
                     )
                     Spacer(modifier = Modifier.height(15.dp))
+
                 }
                 items(country.capital) { capital ->
                     CapitalListItem(

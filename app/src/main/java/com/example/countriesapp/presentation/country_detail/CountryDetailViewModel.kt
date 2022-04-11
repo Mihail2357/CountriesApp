@@ -5,9 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.countriesapp.common.Constants
 import com.example.countriesapp.common.Resource
-import com.example.countriesapp.domain.use_case.get_countries.GetCountriesUseCase
 import com.example.countriesapp.domain.use_case.get_country.GetCountryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -24,13 +22,18 @@ class CountryDetailViewModel @Inject constructor(
     val state: State<CountryDetailState> = _state
 
     init {
-        savedStateHandle.get<String>("name")?.let { name ->
-            getCountry(name)
+        val s = savedStateHandle.get<String>("s")
+        val name = savedStateHandle.get<String>("name")
+
+        if (s != null) {
+            if (name != null) {
+                getCountry(s, name)
+            }
         }
     }
 
-    private fun getCountry(name: String) {
-        getCountryUseCase(name).onEach { result ->
+    private fun getCountry(s: String, name: String) {
+        getCountryUseCase(s, name).onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _state.value = CountryDetailState(country = result.data)

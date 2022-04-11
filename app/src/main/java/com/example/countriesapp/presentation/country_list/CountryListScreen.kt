@@ -31,7 +31,7 @@ fun CountryListScreen(
                 CountryListItem(
                     country = country,
                     onItemClick = {
-                        navController.navigate(Screen.CountryDetailScreen.route + "/${country.name}")
+                        navController.navigate(Screen.CountryDetailScreen.route + "/name/${country.name}")
                     }
                 )
             }

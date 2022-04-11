@@ -18,8 +18,8 @@ interface CountriesApi {
 
 interface CountryDetailsApi {
 
-    @GET("v3.1/name/{name}")
-    suspend fun getCountryByName(@Path("name") name: String): CountryDetailsApiResponseDto
+    @GET("v3.1/{s}/{name}")
+    suspend fun getCountryByName(@Path("s") s: String, @Path("name") name: String): CountryDetailsApiResponseDto
 
     companion object {
         const val BASE_URL = "https://restcountries.com/"

@@ -32,9 +32,9 @@ class MainActivity : ComponentActivity() {
                             CountryListScreen(navController)
                         }
                         composable(
-                            route = Screen.CountryDetailScreen.route + "/{name}"
+                            route = Screen.CountryDetailScreen.route + "/{s}/{name}"
                         ) {
-                            CountryDetailScreen()
+                            CountryDetailScreen(navController)
                         }
                     }
                 }

@@ -1,6 +1,7 @@
 package com.example.countriesapp.presentation.country_detail.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,10 +15,13 @@ import androidx.compose.ui.unit.dp
 @Composable
 
 fun CountryBorders(
-    border: String
+    border: String,
+    onItemClick: (String) -> Unit
+
 ) {
     Box(
         modifier = Modifier
+            .clickable { onItemClick(border) }
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colors.primary,

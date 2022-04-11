@@ -10,11 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import com.example.countriesapp.domain.model.Country
 
 @Composable
 fun CapitalListItem(
     capital: String,
     modifier: Modifier = Modifier
+
 ) {
     Column(
         modifier = modifier,
