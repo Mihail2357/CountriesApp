@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.countriesapp.common.Resource
 import com.example.countriesapp.domain.model.Country
 import com.example.countriesapp.domain.repository.CountryRepository
+import com.example.countriesapp.domain.use_case.database.SaveCountryUseCase
 import com.example.countriesapp.domain.use_case.get_countries.GetCountriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -20,7 +21,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CountryListViewModel @Inject constructor(
-    private val getCountriesUseCase: GetCountriesUseCase
+    private val getCountriesUseCase: GetCountriesUseCase,
+    private val saveCountryUseCase: SaveCountryUseCase,
+
 ): ViewModel() {
 
     private val _state = mutableStateOf(CountryListState())
@@ -35,6 +38,12 @@ class CountryListViewModel @Inject constructor(
 
     fun onEvent(event: CountryListEvent) {
         when(event) {
+
+            is CountryListEvent.SaveCountry -> {
+                viewModelScope.launch {
+                    saveCountryUseCase(event.country)
+                }
+            }
             is CountryListEvent.OnSearchQueryChange -> {
                 state2 = state2.copy(searchQuery = event.query)
                 searchJob?.cancel()

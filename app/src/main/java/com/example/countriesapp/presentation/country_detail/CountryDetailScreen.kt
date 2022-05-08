@@ -110,6 +110,10 @@ fun CountryDetailScreen(
                     )
                     Divider()
                 }
+                item{
+                    Spacer(modifier = Modifier.height(40.dp))
+                }
+
             }
         }
         if(state.error.isNotBlank()) {

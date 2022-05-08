@@ -1,5 +1,9 @@
 package com.example.countriesapp.di
 
+import android.app.Application
+import androidx.room.Room
+import com.example.countriesapp.data.local.CountryDao
+import com.example.countriesapp.data.local.CountryDatabase
 import com.example.countriesapp.data.remote.CountriesApi
 import com.example.countriesapp.data.remote.CountryDetailsApi
 import com.example.countriesapp.data.repository.CountryRepositoryImpl
@@ -53,8 +57,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCountryRepository(countriesApi: CountriesApi, countryDetails: CountryDetailsApi): CountryRepository {
-        return CountryRepositoryImpl(countriesApi, countryDetails)
+    fun provideCountryRepository(
+        countriesApi: CountriesApi,
+        countryDetails: CountryDetailsApi,
+        db : CountryDatabase
+    ): CountryRepository {
+        return CountryRepositoryImpl(countriesApi, countryDetails,db.dao)
     }
 
+    @Provides
+    @Singleton
+    fun provideCountryDatabase(app: Application): CountryDatabase {
+        return Room.databaseBuilder(
+            app, CountryDatabase::class.java, "country_db"
+        ).build()
+    }
 }
