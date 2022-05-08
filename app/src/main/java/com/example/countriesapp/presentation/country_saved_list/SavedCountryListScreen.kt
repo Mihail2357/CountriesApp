@@ -1,4 +1,4 @@
-package com.example.countriesapp.presentation.country_list
+package com.example.countriesapp.presentation.country_saved_list
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.countriesapp.presentation.Screen
+import com.example.countriesapp.presentation.country_list.CountryListEvent
 import com.example.countriesapp.presentation.country_list.components.CountryListItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -23,9 +24,9 @@ import me.saket.swipe.SwipeableActionsBox
 
 
 @Composable
-fun CountryListScreen(
+fun SavedCountryListScreen(
     navController: NavController,
-    viewModel: CountryListViewModel = hiltViewModel()
+    viewModel: SavedCountryListViewModel = hiltViewModel()
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(
         isRefreshing = viewModel.state2.isRefreshing
@@ -55,34 +56,37 @@ fun CountryListScreen(
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(state2.countries) { country ->
+
                     val saveCountry = SwipeAction(
                         icon = {
-                            Icon(imageVector = Icons.Outlined.AddCircle, contentDescription = "add_button")
+                            Icon(imageVector = Icons.Outlined.AddCircle, contentDescription = "delete_button")
                         },
-                        background = Color.Green,
-                        onSwipe = { viewModel.onEvent(CountryListEvent.SaveCountry(country = country.name)) }
+                        background = Color.Red,
+                        onSwipe = { viewModel.onEvent(CountryListEvent.DeleteCountry(country = country)) }
                     )
+
+
                     SwipeableActionsBox(
                         swipeThreshold = 60.dp,
                         startActions = listOf(saveCountry)
                     ) {
-
-                        Card(modifier = Modifier.fillMaxWidth()
-                        ) {
-
-                            CountryListItem(
-                                country = country,
-                                onItemClick = {
-                                    navController.navigate(Screen.CountryDetailScreen.route + "/name/${country.name}")
-                                }
-                            )
-                        }
+                        CountrySavedListItem(
+                            country = country,
+                            onItemClick = {
+                                navController.navigate(Screen.CountryDetailScreen.route + "/name/${country}")
+                            }
+                        )
                     }
                 }
                 item{
                     Spacer(modifier = Modifier.height(60.dp))
                 }
             }
+
+
+
+
+
 
             if (state.error.isNotBlank()) {
                 Text(
