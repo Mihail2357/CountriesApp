@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import com.example.countriesapp.presentation.Screen
 import com.example.countriesapp.presentation.country_list.CountryListEvent
 import com.example.countriesapp.presentation.country_list.components.CountryListItem
+import com.example.countriesapp.ui.theme.DarkBlue
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import me.saket.swipe.SwipeAction
@@ -70,12 +71,17 @@ fun SavedCountryListScreen(
                         swipeThreshold = 60.dp,
                         startActions = listOf(saveCountry)
                     ) {
-                        CountrySavedListItem(
-                            country = country,
-                            onItemClick = {
-                                navController.navigate(Screen.CountryDetailScreen.route + "/name/${country}")
-                            }
-                        )
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            backgroundColor = DarkBlue
+                        ) {
+                            CountrySavedListItem(
+                                country = country,
+                                onItemClick = {
+                                    navController.navigate(Screen.CountryDetailScreen.route + "/name/${country}")
+                                }
+                            )
+                        }
                     }
                 }
                 item{

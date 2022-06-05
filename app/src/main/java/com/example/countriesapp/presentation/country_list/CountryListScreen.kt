@@ -16,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.countriesapp.presentation.Screen
 import com.example.countriesapp.presentation.country_list.components.CountryListItem
+import com.example.countriesapp.ui.theme.DarkBlue
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import me.saket.swipe.SwipeAction
@@ -67,7 +68,8 @@ fun CountryListScreen(
                         startActions = listOf(saveCountry)
                     ) {
 
-                        Card(modifier = Modifier.fillMaxWidth()
+                        Card(modifier = Modifier.fillMaxWidth(),
+                            backgroundColor = DarkBlue
                         ) {
 
                             CountryListItem(

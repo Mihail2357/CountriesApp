@@ -16,10 +16,13 @@ class GetCountryUseCase @Inject constructor(
     operator fun invoke(s: String, name: String): Flow<Resource<CountryDetail>> = flow {
         try {
             emit(Resource.Loading<CountryDetail>())
+            /*
             var k=0
             val setA = setOf("Romania")
             if (setA.contains(name)) k=1
-            val country = repository.getCountryByName(s, name)[k].toCountryDetail()
+             */
+
+            val country = repository.getCountryByName(s, name)[0].toCountryDetail()
             emit(Resource.Success<CountryDetail>(country))
         } catch (e: HttpException) {
             emit(Resource.Error<CountryDetail>("An unexpected error occured"))

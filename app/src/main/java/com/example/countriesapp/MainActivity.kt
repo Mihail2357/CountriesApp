@@ -9,8 +9,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,6 +19,7 @@ import com.example.countriesapp.presentation.bottomNav.BottomNavigationBar
 import com.example.countriesapp.presentation.country_detail.CountryDetailScreen
 import com.example.countriesapp.presentation.country_list.CountryListScreen
 import com.example.countriesapp.presentation.country_saved_list.SavedCountryListScreen
+import com.example.countriesapp.presentation.countrymap.GoogleMaps
 import com.example.countriesapp.ui.theme.CountriesAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,6 +76,10 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 CountryDetailScreen(navController)
                             }
+
+                            composable(
+                                route = "Map"+"/{s}/{name}"
+                            ) { GoogleMaps() }
                         }
                     }
 

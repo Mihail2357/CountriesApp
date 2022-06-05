@@ -7,8 +7,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.countriesapp.common.Resource
-import com.example.countriesapp.domain.model.Country
-import com.example.countriesapp.domain.repository.CountryRepository
 import com.example.countriesapp.domain.use_case.database.DeleteCountryUseCase
 import com.example.countriesapp.domain.use_case.get_countries.GetCountriesUseCase
 import com.example.countriesapp.domain.use_case.get_saved_countries.GetSavedCountriesUseCase
