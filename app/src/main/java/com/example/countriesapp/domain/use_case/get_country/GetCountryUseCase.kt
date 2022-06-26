@@ -21,8 +21,15 @@ class GetCountryUseCase @Inject constructor(
             val setA = setOf("Romania")
             if (setA.contains(name)) k=1
              */
+            var country:CountryDetail
+            if(name.equals("United States")) {
+                country = repository.getCountryByName(s, "America")[0].toCountryDetail()
+            }
 
-            val country = repository.getCountryByName(s, name)[0].toCountryDetail()
+            else
+            {
+                 country = repository.getCountryByName(s, name)[0].toCountryDetail()
+            }
             emit(Resource.Success<CountryDetail>(country))
         } catch (e: HttpException) {
             emit(Resource.Error<CountryDetail>("An unexpected error occured"))
